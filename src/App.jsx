@@ -25,11 +25,11 @@ function App() {
   const addOrUpdateItem = (value) => {
     if (itemToEdit) {
       // Si se está editando, actualiza el ítem correspondiente
-      setItems(items.map(item => item.id === itemToEdit.id ? { ...item, value } : item));
+      setItems(items.map(item => item.id === itemToEdit.id ? { ...item, ...value } : item));
       setItemToEdit(null); // Limpia el ítem en edición
     } else {
       // Si no, agrega un nuevo ítem con un id único
-      setItems([...items, { id: Date.now(), value }]);
+      setItems([...items, { id: Date.now(), ...value }]);
     }
   };
 
