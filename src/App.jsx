@@ -3,47 +3,56 @@ import Form from './components/Form';
 import List from './components/List';
 import './App.css';
 
-function App() {
-  // Estado que guarda los elementos (ítems) del CRUD
-  const [items, setItems] = useState([]);
+function obtenerEtiqueta(promedio) {
+  if (promedio >= 1 && promedio <= 3.9) return "deficiente";
+  if (promedio >= 4.0 && promedio <= 5.5) return "con mejora";
+  if (promedio >= 5.6 && promedio <= 6.4) return "buen trabajo";
+  if (promedio >= 6.5 && promedio <= 7.0) return "destacado";
+  return "promedio inválido";
+}
 
-  // Estado para guardar el ítem que se desea editar
+function App() {
+  const [items, setItems] = useState([]);
   const [itemToEdit, setItemToEdit] = useState(null);
 
-  // Al cargar la app, recupera los datos guardados en localStorage
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('items')) || [];
     setItems(storedItems);
   }, []);
 
-  // Cada vez que cambian los ítems, actualiza el localStorage
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
   }, [items]);
 
-  // Función para agregar o actualizar un ítem
-  const addOrUpdateItem = (value) => {
+  const addOrUpdateItem = ({ nombre, asignatura, promedio }) => {
+    const etiqueta = obtenerEtiqueta(promedio);
+
     if (itemToEdit) {
-      // Si se está editando, actualiza el ítem correspondiente
-      setItems(items.map(item => item.id === itemToEdit.id ? { ...item, ...value } : item));
-      setItemToEdit(null); // Limpia el ítem en edición
+      setItems(items.map(item =>
+        item.id === itemToEdit.id
+          ? { ...item, nombre, asignatura, promedio, etiqueta }
+          : item
+      ));
+      setItemToEdit(null);
     } else {
-      // Si no, agrega un nuevo ítem con un id único
-      setItems([...items, { id: Date.now(), ...value }]);
+      setItems([...items, {
+        id: Date.now(),
+        nombre,
+        asignatura,
+        promedio,
+        etiqueta
+      }]);
     }
   };
 
-  // Función para eliminar un ítem por su id
   const deleteItem = (id) => {
     setItems(items.filter(item => item.id !== id));
   };
 
-  // Función para seleccionar un ítem para editar
   const editItem = (item) => {
     setItemToEdit(item);
   };
 
-  // Renderizado principal
   return (
     <div className="App">
       <h1>CRUD con LocalStorage</h1>

@@ -36,15 +36,18 @@ const handleSubmit = (e) => {
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  if (!nombre || !asignatura || !promedio) return;
-
   const numPromedio = Number(promedio);
-  if (numPromedio < 1 || numPromedio > 7) {
-    alert("El promedio debe estar entre 1 y 7");
+
+  if (!nombre || !asignatura || isNaN(numPromedio) || numPromedio < 1 || numPromedio > 7) {
+    alert("Completa todos los campos correctamente");
     return;
   }
 
-addOrUpdateItem({ nombre, asignatura, promedio: numPromedio }); // envías el número convertido
+  addOrUpdateItem({
+    nombre,
+    asignatura,
+    promedio: numPromedio
+  });
 
   setNombre('');
   setAsignatura('');
