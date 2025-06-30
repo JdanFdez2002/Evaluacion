@@ -12,13 +12,11 @@ function obtenerEtiqueta(promedio) {
 }
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+  const storedItems = localStorage.getItem('items');
+  return storedItems ? JSON.parse(storedItems) : [];
+  });
   const [itemToEdit, setItemToEdit] = useState(null);
-
-  useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem('items')) || [];
-    setItems(storedItems);
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
