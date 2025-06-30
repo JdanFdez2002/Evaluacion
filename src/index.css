@@ -24,10 +24,14 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('/public/Fondo.jpg');
+  background-repeat: repeat;
+  background-size: 17%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -65,4 +69,21 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: transparent;
+  min-height: 100vh;
+}
+
+.App {
+  background-color: #e0e0e0; /* gris claro */
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
 }

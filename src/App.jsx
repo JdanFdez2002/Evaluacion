@@ -52,6 +52,7 @@ function App() {
   };
 
   return (
+  <div className="main-container">
     <div className="App">
       <h1>CRUD con LocalStorage</h1>
       <Form
@@ -64,6 +65,7 @@ function App() {
         editItem={editItem}
       />
     </div>
+  </div>
   );
 }
 
